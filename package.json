@@ -1,0 +1,21 @@
+{
+  "name": "docs",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "vitepress": "^1.0.0-rc.25"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev .",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "flexsearch": "^0.7.31",
+    "vitepress-plugin-search": "^1.0.4-alpha.20"
+  }
+}
