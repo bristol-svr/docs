@@ -55,7 +55,7 @@ app.ws('/{route}', {
    * this is used for passing data to the websocket server.
    * see the `ws` chat-room example for how it can be used.
    */
-  upgrade?(ctx: Context): Record<string, any>
+  upgrade?(ctx?: Context): Record<string, any>
 })
 ...
 ```

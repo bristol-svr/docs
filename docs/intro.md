@@ -16,14 +16,14 @@ Bun is required to run Colstonjs hence it needs to be installed on your developm
 ### Installation
 To install bun, head over to the official [website](http://bun.sh) and follow the installation instructions.
 
-To install `coltsonjs` run
+To install `@colstonjs/core` run
 
 ```bash
 # Initialize a new Bun project
 $ bun init
 
-# Install Stric core and utility packages
-$ bun add colstonjs
+# Install Colstonjs core package
+$ bun add @colstonjs/core
 ```
 #### _NOTE_
 _Although colstonjs is distributed under npm, colstonjs is only available for bun, node and deno are not currently supported._
