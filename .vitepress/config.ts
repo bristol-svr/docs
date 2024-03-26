@@ -52,6 +52,10 @@ export default defineConfig({
             text: 'Contexts',
             link: '/docs/app/contexts'
           },
+          {
+            text: 'WebSocket',
+            link: '/docs/app/websocket'
+          },
           // {
           //   text: 'Responses',
           //   link: '/docs/app/responses'

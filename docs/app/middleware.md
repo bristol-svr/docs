@@ -6,7 +6,7 @@ All middleware functions in Colstonjs has the same structure, basically it's a f
 
 ```ts
 // middleware definition
-function middleware(context: Context, next?: Next): Response | null |  Promise<Response | null>;
+function middleware(context: Context, next?: Next): Response | null | Promise<Response | null>;
 ```
 
 ## Application Level Middleware
@@ -14,7 +14,7 @@ function middleware(context: Context, next?: Next): Response | null |  Promise<R
 This is a middleware which will be called on each request made to the server, one use case can be for logging, modifying all requests coming into the server e.g `cors()` handling, attaching a request id (to identify each request) to every requests etc. To use the application level middleware, we call the `.use()` on the Colston (app) instance object.
 
 ```ts
-import Colston, { Colston } from 'colston';
+import Colston, { Colston } from '@colstonjs/core';
 
 function cb(ctx: Colston): Response | null;
 new Colston().app(cb): void;
@@ -99,5 +99,5 @@ The route handler is a special type of a middleware that finally handles the inc
 The final request handler has the following signature.
 
 ```ts
-function handler(context: Context): Response;
+function handler(context: Context): Response | void | Promise<Response | void>;
 ```

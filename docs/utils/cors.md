@@ -15,8 +15,8 @@ bun add @colstonjs/cors
 Without passing in a configuration option for our CORS handler, we rely on the simple default implementation.
 
 ```ts
-import Colston from 'colstonjs';
-import cors from '@colstonjs/cors'; // Or import { cors } from 'colstonjs/utils';
+import Colston from '@colstonjs/core';
+import cors from '@colstonjs/cors';
 
 const app = new Colston({ env: 'development' });
 
@@ -44,14 +44,14 @@ interface CorsOptions {
   maxAge?: number | string;
 }
 
-import Colston from 'colstonjs';
-import cors from 'colstonjs/cors'; // Or import { cors } from 'colstonjs/utils';
+import Colston from '@colstonjs/core';
+import cors from '@colstonjs/cors';
 
 const app = new Colston({ env: 'development' });
 
 const whitelist = ['http://localhost:5500', 'http://example.com'];
 const corsOptions: CorsOptions = {
-  origin: function (origin: string, callback: Function) {
+  origin: (origin: string, callback: Function) => {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -69,7 +69,7 @@ This `cors` utility library is a typescript port of the [cors](https://www.npmjs
 
 ## Custom Implementation
 
-If the above implementations doesn't cover the entire use case of the application, a custom CORS handler can be implemented and passed in as a middleware function.
+If the above implementations doesn't cover the entire use case of the application, a custom CORS handler can be implemented and passed in as a middleware function. The below snippet shows a sample custom CORS implementation that can completely be overridden or replaced to cover for any specific or special use case.
 
 ```ts
 import { Context, Next } from '@colstonjs/cors';
@@ -87,7 +87,7 @@ export const cors = (options?: object) => {
     // Check if it's a preflight request
     if (ctx.req.method === 'OPTIONS') {
       // End preflight request
-      return ctx.status(200).head();
+      return ctx.status(200).end();
     } else {
       // Move to the next middleware
       next();
@@ -99,7 +99,7 @@ export const cors = (options?: object) => {
 The above custom `cors` handler implementation can then be imported and used as shown below
 ```ts
 // server.ts
-import Colston from 'colstonjs';
+import Colston from '@colstonjs/core';
 import { cors } from './cors';
 
 const app = new Colston();

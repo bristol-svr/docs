@@ -1,50 +1,52 @@
 # Router
-The Colstonjs router is a class that handles all the routing in Colstonjs.
+The Colstonjs router is a class that handles all the routing in Colstonjs. The router instance object contains all the http methods required to register handlers on a specific route.
 
 ## Handling Routes
 Colstonjs simplifies the process of handling different endpoints in your web application. Here’s a guide on setting up and managing routes.
 
 ## Setting Up Routes
-1. **Initialize a Router instance**: Make a new Router instance.
-2. **Register Route path**: Register a route path (pathname), on the router instance object.
-
+1.  **Import the router module**
 ```ts
 import { Router, type Context } from '@colstonjs/core';
+```
 
-const router: Router = new Router(options?: TRouterOptions);
-router.get('/notes', (ctx: Context) => {});
+2.  **Instantiate a Router object**: Make a new Router instance object.
+```ts
+const router: Router = new Router(options?: IRouterOptions);
+```
+
+3.  **Register Route path**: Register a route path (pathname), on the router instance object.
+```ts
+router.get('/notes', (ctx: Context) => {...});
 ```
 
 - The `router.{method}` registers a handler for the `METHOD` requests matching the provided `/{pathname}` path. In this case, we registered handler function `(ctx: Context) => {}` for a `GET` method on the `/notes` path.
 - Colstonjs supports various HTTP methods, including `POST`, `PUT`, `DELETE`, and `PATCH`.
 
 ```ts
-router.get('/note/:id', (ctx: Context) => {});       // GET a single note object by id path param
-router.post('/note', (ctx: Context) => {});          // POST a note object
-router.patch('/note', (ctx: Context) => {});         // PATCH a note object
-router.put('/note', (ctx: Context) => {});           // PUT a note object
-router.delete('/note/:id', (ctx: Context) => {});    // DELETE a note object
+router.get('/note/:id', (ctx: Context) => {...});       // GET a single note object by id path param
+router.post('/note', (ctx: Context) => {...});          // POST a note object
+router.patch('/note', (ctx: Context) => {...});         // PATCH a note object
+router.put('/note', (ctx: Context) => {...});           // PUT a note object
+router.delete('/note/:id', (ctx: Context) => {...});    // DELETE a note object
 ```
 
 ### Route Configurations
-The `new Router(options?: TRouterOptions)` constructor takes in an optional router options object, `ignoreTrailingSlash` and `prefix`
+The `new Router(options?: IRouterOptions)` constructor takes in an optional router options object, `prefix`
 
 ```ts
-const options: TRouterOptions = {
-    prefix: '/v1',
-    ignoreTrailingSlash: true,
+const options: IRouterOptions = {
+    prefix: '/v1'
 }
 
 const router = new Router(options);
 ```
 
-1.  **ignoreTrailingSlash**
-This options is set will ignore all tailing slashes in all the registered routes, e.g `/notes/` -> `/notes`. This option defaults to `true`
-2. **prefix**
+**prefix**
 This option prefixes a static string before the provided route path e.g `prefix: '/v1'` + `/notes` -> `/v1/notes`. This is essential when there is a need to version your APIs
 
 ```ts
-import { Router, type Context } from 'colston';
+import { Router, type Context } from '@colstonjs/core';
 
 const router1 = new Router({ prefix: '/v1' });
 const router2 = new Router({ prefix: '/v2' });
@@ -60,7 +62,7 @@ router2.get('/notes', (ctx: Context) => {
 });
 ```
 
-It is important to note that the `IServerOptions` configuration also accepts a global `ignoreTrailingSlash` property, if set, it will be used for all the routes. When both the global `ignoreTrailingSlash` from the `IServerOptions` and that from the `TRouterOptions` are set, the property from the `TRouterOptions` take priority as this make more sense since it's specific to a given router instance.
+<!-- It is important to note that the `IServerOptions` configuration also accepts a global `ignoreTrailingSlash` property, if set, it will be used for all the routes. When both the global `ignoreTrailingSlash` from the `IServerOptions` and that from the `IRouterOptions` are set, the property from the `IRouterOptions` take priority as this make more sense since it's specific to a given router instance. -->
 
 ## Request Handler
 Handlers are functions that process incoming requests. They accept a single parameter, the current request context and returns a response.

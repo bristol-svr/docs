@@ -1,6 +1,6 @@
 # Context
 
-The context object is a special object that is very specific to Colstonjs, it runs from the first application level middleware to the final route handler. It contains various usual object properties that transmits information throughout the application.
+The context object is a special object that is specific to Colstonjs, it runs from the first application level middleware to the final route handler. It contains various usual object properties that transmits information throughout the application.
 
 ## Context as a Response Object
 
@@ -80,16 +80,17 @@ context.render('<h1>Hi</h1>', { statusText: 'text/html' })  // sends an HTML res
 context.statusText('text/html').raw('<h1>Hi</h1>', { status: 200 }) // sends an HTML response.
 context.option({ status: 200, statusText: 'OK' }).json({ foo: 'bar' })  // sends a JSON response.
 context.setHeader('Basic', 'GrVZnV6Y==').send('OK', { statusText: 'text/html' }) // similar to context.response().
+context.status(200).end()                 // end the response and send the response header to the client
 ```
 
-## Setting and Retrieving Headers
+## Setting and Retrieving Response Headers
 
 ```ts
-context.header.set('Basic', 'GrVZnV6Y');
-context.header.get('Basic'); // GrVZnV6Y
+context.header.set('Basic', 'GrVZnV6Y==');
+context.header.get('Basic'); // GrVZnV6Y==
 
 context.header.append('Basic', '-2uQPt1hIR20==')
-context.header.get('Basic'); // GrVZnV6Y-2uQPt1hIR20
+context.header.get('Basic'); // GrVZnV6Y-2uQPt1hIR20==
 
 context.setHeader('Basic', 'ANQiXvob2Pg=')
 context.get('Basic') // ANQiXvob2Pg=

@@ -1,16 +1,16 @@
 # Getting Started
-Colstonjs provides a simple and elegant way to build web applications. To get started, you first need to install the main component, `colstonjs`.
+Colstonjs provides a simple and elegant way to build web applications. To get started, you first need to install the `core` library, `@colstonjs/core`.
 
 ## Installation
-Use Bun to install `colstonjs`:
+Use Bun to install `@colstonjs/core`:
 
 ```bash
-$ bun add colstonjs
+$ bun add @colstonjs/core
 ```
 
 ## Initializing Your Application
 <!-- rephrase -->
-Once installed, you can set up your application by importing and running the `Colston` class module from `colstonjs`.
+Once installed, you can set up your application by importing and running the `Colston` class module from `@colstonjs/core`.
 This module takes an optional configuration object where you specify essential settings for your application, such as the routes prefix, `port`, `env` etc.
 
 ### Example:
@@ -19,12 +19,13 @@ Create an entry point file (e.g., `index.ts`) and add the following code:
 ```ts
 import Colston, { Context } from '@colstonjs/core';
 
-type IServerOptions = {
+interface IServerOptions {
     // Specify your application configurations here
-    env?: 'development' | 'production',
-    port?: number,
-    hostname?: string,
-    unix?: string,
+    env?: 'development' | 'production';
+    port?: number;
+    hostname?: string;
+    unix?: string;
+    reusePort?: boolean;
     /**
      * prefix all route with a string
      * @example
@@ -34,21 +35,21 @@ type IServerOptions = {
      * - with prefix '/api/v1'
      * route -> /api/v1/notes
      */
-    prefix?: string,
-    ignoreTrailingSlash?: boolean, // '/note/'' -> '/note'
-    prefix?: string,
-    maxRequestBodySize?: number,
+    prefix?: string;
+    ignoreTrailingSlash?: boolean; // '/note/'' -> '/note'
+    prefix?: string;
+    maxRequestBodySize?: number;
     /**
      * This sets `OPENSSL_RELEASE_BUFFERS` to 1.
      * It reduces overall performance but saves some memory.
      * @default false
      */
-    lowMemoryMode?: boolean,
-    keyFile?: string,
-    certFile?: string,
-    passphrase?: string,
-    caFile?: string,
-    dhParamsFile?: string,
+    lowMemoryMode?: boolean;
+    keyFile?: string;
+    certFile?: string;
+    passphrase?: string;
+    caFile?: string;
+    dhParamsFile?: string;
 
     tls?: {
         key?: TLSKey;
@@ -77,7 +78,6 @@ import { Router, Context } from '@colstonjs/core';
 
 interface TRouteOptions {
     prefix?: string;
-    ignoreTrailingSlash?: boolean;
 }
 
 const router = new Router(options?: TRouteOptions);
@@ -141,7 +141,7 @@ const app: Colston = new Colston({ env: 'development' });
 
 // a broken route
 app.get("/error", (ctx) => {
-    throw new Error('This is a broken route');
+    throw Error('This is a broken route');
 });
 
 // Custom error handler
@@ -176,7 +176,7 @@ const serverOptions: ServerOptions = {
 const app: Colston = new Colston(serverOptions);
 ...
 
-app.start(8000);
+app.listen(8000);
 ```
 
 <!-- rephrase -->
