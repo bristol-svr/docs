@@ -9,6 +9,14 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
+  "homepage": "https://github.com/bristol-svr/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bristol-svr/docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bristol-svr/docs/issues"
+  },
   "scripts": {
     "docs:dev": "vitepress dev .",
     "docs:build": "vitepress build",
